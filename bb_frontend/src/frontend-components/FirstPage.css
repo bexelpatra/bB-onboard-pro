@@ -1,0 +1,125 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Raleway", sans-serif;
+  background-color: white;
+}
+
+.fp-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f5df4d;
+  border: 1px solid black;
+  padding: 20px; /* Add padding inside the container */
+  margin: auto; /* Center the container horizontally */
+  margin-top: 10vh;
+  max-width: 250px; /* Set a maximum width for the container (optional) */
+}
+
+.image-one {
+  width: 157px;
+  height: 100px;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.image-two:hover {
+  cursor: pointer;
+}
+
+.image-three {
+  width: 60px;
+  height: 60px;
+  margin-right: 20px;
+}
+
+/* .app-title {
+} */
+
+.icon {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.icon p {
+  margin-right: 100px;
+}
+
+.purpose {
+    margin-right: 170px
+}
+
+.purpose-two {
+    margin-right: 60px;
+}
+
+.fp-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* gap: 5px; */
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: #fff;
+  font-family: "Raleway", sans-serif;
+  font-weight: 1000;
+  width: 250px;
+  border-radius: 15px;
+}
+
+.fp-content p {
+  color: #333;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+
+.cancel-button {
+  background-color: #9b94b3;
+  color: #fff;
+  margin-top: 12px;
+  padding: 10px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Raleway", sans-serif;
+  font-weight: 1000;
+}
+
+.accept-button {
+  background-color: black;
+  color: #fff;
+  padding: 10px 10px;
+  margin-left: 40px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Raleway", sans-serif;
+  font-weight: 1000;
+}
+
+.footer{
+    background-color: #fff;
+    width: 280px;
+    margin-top: 7px;
+    padding: 2px;
+    border-radius: 10px;
+    color: grey;
+}
+
+.footer-content-one{
+    margin-right: 200px;
+    margin-left: 20px;
+}
