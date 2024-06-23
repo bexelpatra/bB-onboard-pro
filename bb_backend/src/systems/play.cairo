@@ -73,11 +73,9 @@ fn next_position(mut position: Position, direction: Direction) -> Position {
 fn put(y :u8, x :u8){
     let a = y*10+x;
     let b = y+x;
-    println!("{} {} ",a,b);
     let mut dict :Felt252Dict<u8> = Default::default();
     dict.insert(23,'p');
     let ok = possible(y,x,dict);
-    println!(" ok ! {}",ok);
 }
 
 fn check_point(y :u8,x :u8) -> u8 {
@@ -95,15 +93,29 @@ fn check_point(y :u8,x :u8) -> u8 {
         let mut next_y :u8 = 0;
         let mut next_x :u8 = 0;
         
+        let mut between_y :u8 = 0;
+        let mut between_x :u8 = 0;
         if(negative_y){
-            next_y = y - 1 ;
+            if(y < 2){
+                i+=1;
+                continue;
+            }
+            next_y = y - 2 ;
+            between_y = y - 1 ;
         }else{
             next_y = y + *ny[i]; 
+            between_y = y + *ny[i] * 2 ;
         }
         if(negative_x){
-            next_x = x - 1 ;
+            if (x < 2 ){
+                i+=1;
+                continue;
+            }
+            next_x = x - 2 ;
+            between_x = x - 1 ;
         }else{
             next_x = x + *nx[i];
+            between_x = x + *nx[i] * 2;
         }
         i+=1;
     }
