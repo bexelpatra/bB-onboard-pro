@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import FirstPage from "./Components/FirstPage";
-import PageTwo from "./Components/PageTwo";
-import PageThree from "./Components/PageThree";
-import PageFour from "./Components/PageFour";
-import PageFive from "./Components/PageFive";
+import FirstPage from "./frontend-components/FirstPage";
+import PageTwo from "./frontend-components/PageTwo";
+import PageThree from "./frontend-components/PageThree";
+import PageFour from "./frontend-components/PageFour";
+import PageFive from "./frontend-components/PageFive";
 
 function App() {
   return (
