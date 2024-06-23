@@ -6,6 +6,7 @@ struct Position {
     #[key]
     player: ContractAddress,
     vec: Vec2,
+    array: ArrayTrait<Vec2>,
     owner : felt252, // 'p' player , 'c' computer
 }
 
@@ -13,6 +14,16 @@ struct Position {
 struct Vec2 {
     x: u32,
     y: u32
+}
+
+#[derive(Copy, Drop, Serde, Introspect)]
+struct Next {
+    nx: u32,
+    ny: u32,
+    n_state : u32,
+    by: u32,
+    bx: u32,
+    b_state : u32
 }
 
 trait Vec2Trait {

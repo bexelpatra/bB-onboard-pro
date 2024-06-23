@@ -28,6 +28,15 @@ mod actions {
         direction: Direction,
     }
 
+    #[derive(Copy, Drop, Serde)]
+    #[dojo::model]
+    #[dojo::event]
+    struct Putting {
+        #[key]
+        player: ContractAddress,
+        array: ArrayTrait<Position>,
+    }
+
     #[abi(embed_v0)]
     impl ActionsImpl of IActions<ContractState> {
         fn put(ref world :IWorldDispatcher, position:Position, owner :felt252){
@@ -56,6 +65,62 @@ mod actions {
             // Emit an event to the world to notify about the player's move.
             emit!(world, (Moved { player, direction }));
         }
+
+        fn put(ref world : IWorldDispatcher, position :Position){
+            let y_ = position.Vec2.y;
+            let x_ = position.Vec2.x;
+            let (mut array) = get!(world,player,Position)
+
+            let ok = possible(y,x,dict);
+            
+            if(ok){
+                array.append(Vec2{y:y,x:x})
+                set!(world,())
+            }
+        }
+
+        fn check_point(y :u8,x :u8) -> u8 {
+            let ny = array![1,1,0,2,2,2, 0,1,];
+            let nx = array![0,1,1, 1, 0,2,2,2,];
+            
+            let len = ny.len();
+            let mut i =0;
+            while i< len {
+                
+                let negative_y : bool = *ny[i]==2; // y is negative
+                let negative_x : bool = *nx[i]==2; // x is negative
+
+                let mut next_y :u8 = 0;
+                let mut next_x :u8 = 0;
+                
+                let mut between_y :u8 = 0;
+                let mut between_x :u8 = 0;
+                if(negative_y){
+                    if(y < 2){
+                        i+=1;
+                        continue;
+                    }
+                    next_y = y - 2 ;
+                    between_y = y - 1 ;
+                }else{
+                    next_y = y + *ny[i]; 
+                    between_y = y + *ny[i] * 2 ;
+                }
+                if(negative_x){
+                    if (x < 2 ){
+                        i+=1;
+                        continue;
+                    }
+                    next_x = x - 2 ;
+                    between_x = x - 1 ;
+                }else{
+                    next_x = x + *nx[i];
+                    between_x = x + *nx[i] * 2;
+                }
+                i+=1;
+            }
+        }
+
     }
 }
 
@@ -69,54 +134,4 @@ fn next_position(mut position: Position, direction: Direction) -> Position {
         Direction::Down => { position.vec.y += 1; },
     };
     position
-}
-fn put(y :u8, x :u8){
-    let a = y*10+x;
-    let b = y+x;
-    let mut dict :Felt252Dict<u8> = Default::default();
-    dict.insert(23,'p');
-    let ok = possible(y,x,dict);
-}
-
-fn check_point(y :u8,x :u8) -> u8 {
-    let ny = array![1,1,0,2,2,2, 0,1,];
-    let nx = array![0,1,1, 1, 0,2,2,2,];
-    
-    let len = ny.len();
-    let mut i =0;
-    println!("y : {}  x: {}",y,x);
-    while i< len {
-        
-        let negative_y : bool = *ny[i]==2; // y is negative
-        let negative_x : bool = *nx[i]==2; // x is negative
-
-        let mut next_y :u8 = 0;
-        let mut next_x :u8 = 0;
-        
-        let mut between_y :u8 = 0;
-        let mut between_x :u8 = 0;
-        if(negative_y){
-            if(y < 2){
-                i+=1;
-                continue;
-            }
-            next_y = y - 2 ;
-            between_y = y - 1 ;
-        }else{
-            next_y = y + *ny[i]; 
-            between_y = y + *ny[i] * 2 ;
-        }
-        if(negative_x){
-            if (x < 2 ){
-                i+=1;
-                continue;
-            }
-            next_x = x - 2 ;
-            between_x = x - 1 ;
-        }else{
-            next_x = x + *nx[i];
-            between_x = x + *nx[i] * 2;
-        }
-        i+=1;
-    }
 }
