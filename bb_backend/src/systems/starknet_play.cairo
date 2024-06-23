@@ -1,37 +1,41 @@
 use starknet::ContractAddress;
 use starknet::get_caller_address;
 
-#[starknet::contract]
+#[dojo::contract]
 mod bb_game {
     use starknet::{ContractAddress, storage_access::StorageBaseAddress};
+    use dojo_starter::models::{
+        position::{Position, Vec2}
+    };
 
     const GRID_SIZE: usize = 5;
-
+    
     #[storage]
+    #[dojo::model]
     struct Storage {
         grid: [[Option<Stone>; GRID_SIZE]; GRID_SIZE],
         player: Player,
         computer: Computer,
     }
-
+    #[dojo::model]
     #[derive(Drop, Serde, starknet::Store)]
-    pub struct Player {
+    struct Player {
         address: ContractAddress,
         play_record: u128,
     }
-
+    #[dojo::model]
     #[derive(Drop, Serde, starknet::Store)]
-    pub struct Computer {
+    struct Computer {
         play_record: u128,
     }
 
     #[derive(Copy, Clone, PartialEq, Drop, Serde, starknet::Store)]
-    pub enum Stone {
+    enum Stone {
         PlayerStone,
         ComputerStone,
     }
 
-    #[event]
+    #[dojo::event]
     #[derive(Drop, starknet::Event)]
     enum Event {
         StonePlaced: StonePlaced,
